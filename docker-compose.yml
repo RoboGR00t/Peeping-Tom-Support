@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  support-console:
+    build: .
+    container_name: peeping-tom-console
+    ports:
+      - "3000:3000"
+    volumes:
+      # Maps the local ./data folder to the container's data folder
+      # This ensures your DB (and generated password hash) survives container restarts
+      - ./data:/usr/src/app/data
+    restart: unless-stopped

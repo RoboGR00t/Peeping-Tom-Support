@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PEEPING TOM // System Access</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+        :root {
+            /* AEGIS Tactical Theme Palette */
+            --bg-base: #0d1117;
+            --bg-surface: #161b22;
+            --bg-terminal: #010409;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-primary: #ff9800;
+            --border-subtle: #30363d;
+            --radius-lg: 4px;
+            --radius-md: 2px;
+            --shadow-inset: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .login-box {
+            background: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 40px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 16px;
+        }
+
+        h2 span {
+            color: var(--accent-primary);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0;
+            background: var(--bg-terminal);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            border-radius: var(--radius-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            outline: none;
+            transition: 0.2s ease;
+            box-shadow: var(--shadow-inset);
+        }
+
+        input::placeholder { color: var(--text-muted); }
+        input:focus { border-color: var(--accent-primary); }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.15s ease;
+        }
+
+        button:hover { background: rgba(255, 152, 0, 0.1); border-color: var(--accent-primary); color: var(--accent-primary); }
+        button:active { background: var(--accent-primary); color: var(--bg-base); }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>PEEPING TOM <span>// Access</span></h2>
+        <form action="/login" method="POST">
+	    <img src="/logo.png" width="100%"/>
+            <input type="text" name="username" placeholder="OPERATOR_ID" autocomplete="off" required>
+            <input type="password" name="password" placeholder="PASSPHRASE" required>
+            <button type="submit">Authenticate</button>
+        </form>
+    </div>
+</body>
+</html>

