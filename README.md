@@ -27,6 +27,29 @@ Rather than treating XSS as a simple proof-of-concept alert, Peeping Tom explore
 
 _Feature availability depends on the current implementation. Review the source code to confirm the exact behavior of each component._
 
+## 📽️ Preview 
+### Login page
+![loginscreen](images/loginscreen.png)
+
+### Operators View 
+![features-operator](images/operator.png)
+
+1. View connection history and session logs.
+2. Display a list of currently active sessions.
+3. View device information.
+4. Initiate remote session control.
+5. Access monitoring and activity logs.
+6. Execute JavaScript within the connected user's session.
+7. Load custom JavaScript modules and scripts within the connected user's sessio.
+8. Copy the generated payload.
+9. Toggle the remote session view to fullscreen.
+10. View the remote session screen.
+11. Configure the payload's IP address (Peeping Tom's IP).
+
+### Operators View with hooked sessions example
+![example-operator](images/example.png)
+
+
 ## 🏗️ Project Structure
 
 ```
