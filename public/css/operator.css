@@ -157,3 +157,113 @@ th { color: var(--text-muted); font-weight: 600; padding: 12px 16px; border-bott
 td { padding: 12px 16px; border-bottom: 1px dotted var(--border-subtle); color: var(--text-main); }
 tr:last-child td { border-bottom: none; }
 tr:hover td { background: rgba(47, 129, 247, 0.1); color: var(--accent-cyan); }
+
+
+/* COMPACT CIRCULAR TRANSPARENT NAVIGATION DIAL */
+.scroll-dial {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 101;
+
+    width: 100px;
+    height: 100px;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    place-items: center;
+
+    background: rgba(13, 17, 23, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.30);
+}
+
+/* DIRECTION BUTTONS */
+.scroll-dial button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(13, 17, 23, 0.45);
+    color: var(--accent-primary);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+/* HOVER EFFECT */
+.scroll-dial button:hover {
+    background: rgba(255, 152, 0, 0.18);
+    border-color: var(--accent-primary);
+    color: var(--accent-hover);
+}
+
+/* CLICK EFFECT */
+.scroll-dial button:active {
+    background: var(--accent-primary);
+    color: var(--bg-base);
+    transform: scale(0.92);
+}
+
+/* POSITION EACH DIRECTION */
+.scroll-dial button[data-direction="up"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.scroll-dial button[data-direction="left"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.scroll-dial button[data-direction="right"] {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.scroll-dial button[data-direction="down"] {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+/* REMOVE OLD MIDDLE ROW LAYOUT */
+.dial-middle {
+    display: contents;
+}
+
+/* FULLSCREEN POSITIONING */
+body.fullscreen-mode .scroll-dial {
+    right: 20px;
+    bottom: 20px;
+}
+
+/* MOBILE SIZE */
+@media (max-width: 600px) {
+    .scroll-dial {
+        width: 88px;
+        height: 88px;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .scroll-dial button {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+}
