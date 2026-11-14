@@ -194,10 +194,9 @@ Remember that client-side controls alone cannot replace server-side authorizatio
 ## 🗺️ Roadmap
 
 - [ ] Remove external dependencies
-    
-- [ ] Add scroll functionality to payload
-    
+- [x] Add scroll functionality to payload
 - [ ] Improve authentication and access controls
+- [x] Add persistence across the web app 
 
 
 ## 🤝 Contributing
