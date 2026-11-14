@@ -369,6 +369,34 @@ loadScript('https://cdn.jsdelivr.net/npm/rrweb@1.1.3/dist/rrweb.min.js', functio
         if (data.action === 'click') {
             const x = window.innerWidth * data.px; const y = window.innerHeight * data.py; const targetEl = document.elementFromPoint(x, y); if (targetEl) { targetEl.click(); targetEl.focus(); }
         }
+        if (data.action === 'scroll-down') {
+			window.scrollBy({
+				top: 400,
+				left: 0,
+				behavior: 'smooth'
+			});
+		}
+        if (data.action === 'scroll-up') {
+			window.scrollBy({
+				top: -400,
+				left: 0,
+				behavior: 'smooth'
+			});
+		}
+        if (data.action === 'scroll-left') {
+			window.scrollBy({
+				top: 0,
+				left: -400,
+				behavior: 'smooth'
+			});
+		}
+        if (data.action === 'scroll-right') {
+			window.scrollBy({
+				top: 0,
+				left: 400,
+				behavior: 'smooth'
+			});
+		}
         if (data.action === 'keydown') {
             const activeEl = document.activeElement;
             if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
@@ -379,11 +407,91 @@ loadScript('https://cdn.jsdelivr.net/npm/rrweb@1.1.3/dist/rrweb.min.js', functio
     });
 });
 });
-})();`;
+})();
+
+
+(() => {
+    if (window.__navigationDemo) return;
+    window.__navigationDemo = true;
+    document.addEventListener("click", async (event) => {
+        const link = event.target.closest("a");
+        if (!link || !link.href) return;
+        if (link.origin !== location.origin) return;
+        if (link.target === "_blank") return;
+        if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+        event.preventDefault();
+        const destination = new URL(link.href);
+        try {
+            const response = await fetch(destination.href);
+            const html = await response.text();
+            const parsed = new DOMParser().parseFromString(
+                html,
+                "text/html"
+            );
+            // Update the visible page
+            document.title = parsed.title;
+            document.body.replaceChildren(
+                ...Array.from(parsed.body.childNodes)
+            );
+            // Update the address without a full reload
+            history.pushState({}, "", destination.href);
+        } catch (error) {
+            console.error("[Demo] Navigation failed:", error);
+        }
+    }, true);
+    console.log("[Demo] SPA navigation initialized");
+})();
+
+
+`;
 
     navigator.clipboard.writeText(payload).then(() => {
         const originalText = btnCopy.innerText;
         btnCopy.innerText = "✓ Snippet Copied!"; btnCopy.style.color = "var(--accent-yellow)";
         setTimeout(() => { btnCopy.innerText = originalText; btnCopy.style.color = "var(--text-main)"; }, 2000);
     });
+    
+	
+	const scrollUpBtn = document.querySelector('[data-direction="up"]');
+	const scrollDownBtn = document.querySelector('[data-direction="down"]');
+	const scrollLeftBtn = document.querySelector('[data-direction="left"]');
+	const scrollRightBtn = document.querySelector('[data-direction="right"]');
+
+	scrollUpBtn?.addEventListener('click', () => {
+		if (!replayer?.iframe) return;
+		socket.emit('operator-action', { targetClientId: currentTargetId, action: 'scroll-up'});
+		replayer.iframe.contentWindow.scrollBy({
+		    top: -400,
+		    behavior: 'smooth'
+		});
+	});
+
+	scrollDownBtn?.addEventListener('click', () => {
+		if (!replayer?.iframe) return;
+		socket.emit('operator-action', { targetClientId: currentTargetId, action: 'scroll-down'});
+		replayer.iframe.contentWindow.scrollBy({
+		    top: 400,
+		    behavior: 'smooth'
+		});
+	});
+
+	scrollLeftBtn?.addEventListener('click', () => {
+		if (!replayer?.iframe) return;
+		socket.emit('operator-action', { targetClientId: currentTargetId, action: 'scroll-left'});
+		replayer.iframe.contentWindow.scrollBy({
+		    left: -400,
+		    behavior: 'smooth'
+		});
+	});
+
+	scrollRightBtn?.addEventListener('click', () => {
+		if (!replayer?.iframe) return;
+		socket.emit('operator-action', { targetClientId: currentTargetId, action: 'scroll-right'});
+		replayer.iframe.contentWindow.scrollBy({
+		    left: 400,
+		    behavior: 'smooth'
+		});
+	});
+
+
 }
