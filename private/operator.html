@@ -62,10 +62,24 @@
 
 	<div class="viewport-wrapper">
             <div class="mirror-wrapper">
-                <div class="viewport-controls">
-                    <button id="btn-fullscreen" class="btn-action" style="width: auto; margin: 0;" onclick="toggleFullscreen()">⛶ Fullscreen</button>
-                </div>
+				<div class="viewport-controls">
+					<button id="btn-fullscreen" class="btn-action"
+						style="width: auto; margin: 0;"
+						onclick="toggleFullscreen()">
+						⛶ Fullscreen
+					</button>
+				</div>
 
+				<div class="scroll-dial" aria-label="Navigation controls">
+					<button type="button" data-direction="up" aria-label="Scroll up">▲</button>
+
+					<div class="dial-middle">
+						<button type="button" data-direction="left" aria-label="Scroll left">◀</button>
+						<button type="button" data-direction="right" aria-label="Scroll right">▶</button>
+					</div>
+
+					<button type="button" data-direction="down" aria-label="Scroll down">▼</button>
+				</div>
                 <div id="mirror-container"></div>
                 <div id="interactive-overlay"></div>
             </div>
